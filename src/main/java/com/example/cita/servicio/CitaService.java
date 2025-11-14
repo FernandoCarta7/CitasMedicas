@@ -45,7 +45,7 @@ public class CitaService implements IServiceCita{
         var lista = this.citaRepositorio.findByPaciente_idPaciente(id_paciente);
 
         for (int i = 0; i < lista.size(); i++) {
-            this.citaRepositorio.deleteById(lista.get(i).id_cita);
+            this.citaRepositorio.deleteById(lista.get(i).idCita);
         }
     }
 }

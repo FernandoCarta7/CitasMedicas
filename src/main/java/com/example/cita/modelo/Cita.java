@@ -1,6 +1,9 @@
 package com.example.cita.modelo;
 
 import jakarta.persistence.*;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,11 +15,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
+@XmlRootElement(name = "cita")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Cita {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id_cita;
-    public LocalDate fecha_cita;
+    public int idCita;
+    public LocalDate fechaCita;
 
     @ManyToOne
     @JoinColumn(name = "fk_id_medico")

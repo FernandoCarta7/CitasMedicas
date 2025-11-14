@@ -1,13 +1,8 @@
 package com.example.cita.modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import jakarta.xml.bind.annotation.*;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -16,6 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
