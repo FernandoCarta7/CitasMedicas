@@ -1,7 +1,6 @@
 package com.example.cita.servicio;
 
 import com.example.cita.modelo.Cita;
-import com.example.cita.modelo.Paciente;
 import com.example.cita.repositorio.CitaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,5 +40,12 @@ public class CitaService implements IServiceCita{
         Pageable pageable = PageRequest.of(page,size);
         var lista = citaRepositorio.findAll(pageable);
         return lista;
+    }
+    public void deleteByPaciente(int id_paciente){
+        var lista = this.citaRepositorio.findByPaciente_idPaciente(id_paciente);
+
+        for (int i = 0; i < lista.size(); i++) {
+            this.citaRepositorio.deleteById(lista.get(i).id_cita);
+        }
     }
 }

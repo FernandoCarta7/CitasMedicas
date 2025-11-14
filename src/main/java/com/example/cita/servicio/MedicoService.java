@@ -1,8 +1,12 @@
 package com.example.cita.servicio;
 
 import com.example.cita.modelo.Medico;
+import com.example.cita.modelo.Paciente;
 import com.example.cita.repositorio.MedicoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,5 +38,10 @@ public class MedicoService implements IServiceMedico{
     public void deleteById(int id) {
         Medico medico = findById(id);
         if (medico != null) medicoRepositorio.deleteById(id);
+    }
+    public Page<Medico> getList(int page, int size) {
+        Pageable pageable = PageRequest.of(page,size);
+        var lista = medicoRepositorio.findAll(pageable);
+        return lista;
     }
 }

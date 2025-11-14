@@ -19,9 +19,9 @@ import java.time.LocalDate;
 public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id_paciente;
-    public String Nombres;
-    public String Apellidos;
-    public String Email;
-    public LocalDate FechaNacimiento;
+    public int idPaciente;
+    public String nombres;
+    public String apellidos;
+    public String email;
+    public LocalDate fechaNacimiento;
 }
