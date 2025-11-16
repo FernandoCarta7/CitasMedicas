@@ -37,4 +37,8 @@ public class CitaController {
                 body(xml);
     }
 
+    @PostMapping(value = "/cita/save")
+    public Cita saveCita(@RequestBody Cita cita) {
+        return citaService.save(cita);
+    }
 }

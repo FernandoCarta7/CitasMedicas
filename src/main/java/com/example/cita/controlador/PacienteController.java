@@ -30,6 +30,12 @@ public class PacienteController {
 
         return lista;
     }
+    @GetMapping("/paciente/{idPaciente}")
+    public Paciente getPacienteById(@PathVariable int idPaciente){
+        var paciente = this.pacienteService.findById(idPaciente);
+
+        return paciente;
+    }
 
 
     @GetMapping("/paciente")

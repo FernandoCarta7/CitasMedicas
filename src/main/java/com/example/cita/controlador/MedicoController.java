@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -22,9 +23,21 @@ public class MedicoController {
     @GetMapping("/medico")
     public Page<Medico> getList(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "0") int size
+            @RequestParam(defaultValue = "10") int size
     ){
         return medicoService.getList(page, size);
+    }
+
+    @GetMapping("/medicos")
+    public List<Medico> getList(){
+        return medicoService.getList();
+    }
+
+    @GetMapping(value = "/getMedicoById/{idMedico}")
+    public Medico getMedicoById(@PathVariable int idMedico){
+        Medico medico = medicoService.findById(idMedico);
+
+        return medico;
     }
 
     @PostMapping("/saveMedico")

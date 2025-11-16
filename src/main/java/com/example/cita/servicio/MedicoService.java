@@ -21,7 +21,9 @@ public class MedicoService implements IServiceMedico{
 
     @Override
     public List<Medico> getList() {
-        return medicoRepositorio.findAll();
+        var lista = medicoRepositorio.findAll();
+        lista.sort( (a,b) -> a.getEspecialidad().compareTo(b.getEspecialidad()) );
+        return lista;
     }
 
     @Override
