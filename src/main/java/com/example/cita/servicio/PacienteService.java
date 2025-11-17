@@ -1,6 +1,8 @@
 package com.example.cita.servicio;
 
+import com.example.cita.modelo.Cita;
 import com.example.cita.modelo.Paciente;
+import com.example.cita.repositorio.CitaRepositorio;
 import com.example.cita.repositorio.PacienteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,9 @@ public class PacienteService implements IServicePaciente{
 
     @Autowired
     PacienteRepositorio pacienteRepositorio;
+
+    @Autowired
+    CitaService citaService;
 
 
     @Override
@@ -36,6 +41,8 @@ public class PacienteService implements IServicePaciente{
     @Override
     public void deleteById(int id) {
         Paciente paciente = findById(id);
+        var citas = citaService.citaRepositorio.findByPaciente_idPaciente(id);
+        if ( !citas.isEmpty() ) citaService.deleteByPaciente(id);
         if (paciente != null) pacienteRepositorio.deleteById(id);
     }
 

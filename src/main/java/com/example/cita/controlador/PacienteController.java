@@ -57,7 +57,6 @@ public class PacienteController {
         Paciente paciente = pacienteService.findById(idPaciente);
         if (paciente == null) return ResponseEntity.notFound().build();
 
-        this.citaService.deleteByPaciente(idPaciente);
         this.pacienteService.deleteById(idPaciente);
 
         Map<String, Boolean> response = new HashMap<>();

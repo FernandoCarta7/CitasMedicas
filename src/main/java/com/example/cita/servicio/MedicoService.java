@@ -1,5 +1,6 @@
 package com.example.cita.servicio;
 
+import com.example.cita.modelo.Cita;
 import com.example.cita.modelo.Medico;
 import com.example.cita.modelo.Paciente;
 import com.example.cita.repositorio.MedicoRepositorio;
@@ -17,6 +18,9 @@ public class MedicoService implements IServiceMedico{
 
     @Autowired
     MedicoRepositorio medicoRepositorio;
+
+    @Autowired
+    CitaService citaService;
 
 
     @Override
@@ -39,6 +43,12 @@ public class MedicoService implements IServiceMedico{
     @Override
     public void deleteById(int id) {
         Medico medico = findById(id);
+        List<Cita> citas = citaService.citaRepositorio.findByMedico_idMedico(id);
+
+        if (!citas.isEmpty()) {
+            citaService.deleteByMedico(id);
+        }
+
         if (medico != null) medicoRepositorio.deleteById(id);
     }
     public Page<Medico> getList(int page, int size) {
