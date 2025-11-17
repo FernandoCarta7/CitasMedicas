@@ -1,9 +1,11 @@
 package com.example.cita.modelo;
 
+import com.example.cita.Adapter.LocalDateAdapter;
 import jakarta.persistence.*;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,8 +22,9 @@ import java.time.LocalDate;
 public class Cita {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int idCita;
-    public LocalDate fechaCita;
+    private int idCita;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    private LocalDate fechaCita;
 
     @ManyToOne
     @JoinColumn(name = "fk_id_medico")

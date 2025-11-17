@@ -31,6 +31,7 @@ public class ReporteService {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
             StringWriter writer = new StringWriter();
+
             marshaller.marshal(reporteXML, writer);
 
             return writer.toString();

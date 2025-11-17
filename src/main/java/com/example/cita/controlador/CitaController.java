@@ -1,6 +1,7 @@
 package com.example.cita.controlador;
 
 import com.example.cita.modelo.Cita;
+import com.example.cita.modelo.Paciente;
 import com.example.cita.servicio.CitaService;
 import com.example.cita.servicio.ReporteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("app")
@@ -40,5 +44,38 @@ public class CitaController {
     @PostMapping(value = "/cita/save")
     public Cita saveCita(@RequestBody Cita cita) {
         return citaService.save(cita);
+    }
+
+    @GetMapping("/cita/{idCita}")
+    public Cita getCitaById(@PathVariable int idCita){
+        var cita = this.citaService.findById(idCita);
+
+        return cita;
+    }
+
+    @PutMapping("/updateCita/{id}")
+    public ResponseEntity<Cita> editarCita(
+            @PathVariable int id,
+            @RequestBody Cita citaRecibida){
+        Cita cita = this.citaService.findById(id);
+        if (cita == null) return ResponseEntity.notFound().build();
+        else {
+            cita.setFechaCita(citaRecibida.getFechaCita());
+
+            this.citaService.save(cita);
+            return ResponseEntity.ok(cita);
+        }
+
+    }
+    @DeleteMapping("/deleteCita/{idCita}")
+    public ResponseEntity<Map<String, Boolean>> deletePaciente(@PathVariable int idCita){
+        Cita cita = citaService.findById(idCita);
+        if (cita == null) return ResponseEntity.notFound().build();
+
+        this.citaService.deleteById(idCita);
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("Eliminado", true);
+        return ResponseEntity.ok(response);
     }
 }

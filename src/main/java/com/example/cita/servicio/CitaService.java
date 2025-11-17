@@ -41,7 +41,7 @@ public class CitaService implements IServiceCita{
             throw new RuntimeException("Medico o paciente no existe: " );
         }else {
             Cita citaNueva = new Cita();
-            citaNueva.fechaCita = cita.getFechaCita();
+            citaNueva.setFechaCita(cita.getFechaCita());
             citaNueva.setMedico(medico);
             citaNueva.setPaciente(paciente);
             return citaRepositorio.save(citaNueva);
@@ -68,7 +68,7 @@ public class CitaService implements IServiceCita{
         var lista = this.citaRepositorio.findByPaciente_idPaciente(id_paciente);
 
         for (int i = 0; i < lista.size(); i++) {
-            this.citaRepositorio.deleteById(lista.get(i).idCita);
+            this.citaRepositorio.deleteById(lista.get(i).getIdCita());
         }
     }
     public  void deleteByMedico( int idMedico ){
