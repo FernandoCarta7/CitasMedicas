@@ -11,6 +11,8 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ReporteXML {
     private List<Cita> citas;
+    private int totalCitas;
+    private double porcentajeCardiologia;
 
     public List<Cita> getCitas() {
         return citas;
@@ -18,5 +20,19 @@ public class ReporteXML {
 
     public void setCitas(List<Cita> citas) {
         this.citas = citas;
+    }
+
+    public int getTotalCitas(){ return totalCitas; }
+
+    public void setTotalCitas(int totalCitas) {
+        this.totalCitas = totalCitas;
+    }
+
+    public double getPorcentajeCardiologia() {
+        return porcentajeCardiologia;
+    }
+
+    public void setPorcentajeCardiologia(double porcentajeCardiologia) {
+        this.porcentajeCardiologia = porcentajeCardiologia;
     }
 }

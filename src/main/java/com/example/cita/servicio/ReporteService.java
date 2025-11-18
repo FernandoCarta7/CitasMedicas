@@ -18,13 +18,22 @@ public class ReporteService {
     @Autowired
     CitaService citaService;
 
-    public String getXml(){
 
+
+    public String getXml(){
+        /*
+        * Total de citas
+        * % de citas de cardiologias
+        *
+        * */
 
         List<Cita> citas = citaService.getList();
+        int totalCitas = citas.size();
         try {
             ReporteXML reporteXML = new ReporteXML();
             reporteXML.setCitas(citas);
+            reporteXML.setTotalCitas(totalCitas);
+            reporteXML.setPorcentajeCardiologia(porcentajeCitasCardiologia(citas, reporteXML.getTotalCitas()));
 
             JAXBContext context = JAXBContext.newInstance(ReporteXML.class);
             Marshaller marshaller = context.createMarshaller();
@@ -44,5 +53,36 @@ public class ReporteService {
         }
 
     }
+
+    public double porcentajeCitasCardiologia( List<Cita> citas, int totalCitas ){
+        boolean bandera = false;
+        int contador = 0;
+        String especialidad = "Cardiología";
+        String compare = "";
+        int indiceInicio = 0;
+        int indiceFinal = 0;
+        int i = 0;
+        double porcentaje = 0;
+        while ( !bandera ){
+            compare = citas.get(i).getMedico().getEspecialidad();
+            if (especialidad.equals(compare) && (contador == 0) ){
+                contador++;
+                indiceInicio = i;
+
+            } else if (especialidad.equals(compare)) {
+                contador++;
+            } else if (!especialidad.equals(compare) && contador !=0 && indiceFinal == 0) {
+                indiceFinal = i;
+                bandera = true;
+            }
+            i++;
+        }
+
+
+
+        porcentaje = (contador * 1.0 / totalCitas * 1.0) * 100;
+        return porcentaje;
+    }
+
 
 }

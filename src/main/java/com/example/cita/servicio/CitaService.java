@@ -28,7 +28,9 @@ public class CitaService implements IServiceCita{
 
     @Override
     public List<Cita> getList() {
-        return citaRepositorio.findAll();
+        List<Cita> citas = citaRepositorio.findAll();
+        citas.sort( (a,b) -> a.getMedico().getEspecialidad().compareTo(b.getMedico().getEspecialidad()) );
+        return citas;
     }
 
     @Override
